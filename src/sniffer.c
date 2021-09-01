@@ -47,11 +47,11 @@ int main(int argc, char *argv[])
 		 fprintf(stderr, "Couldn't parse filter %s: %s\n", filter, pcap_geterr(handle));
 		 return(2);
 	 }
+	char  results;
 	while (1){//loop while gtting packets
 		packet = pcap_next(handle, &header);
-		char results;
-		results = strstr(   packet,   argv[1]);
-		if (results) printf("[%s]\n", results);
+		results = strstr(   (char *)packet,  argv[1]);
+		if (results) printf("[%s]\n", &results);
 	}
 	pcap_close(handle);
 
