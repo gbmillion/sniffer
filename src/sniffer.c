@@ -4,7 +4,7 @@
 
 //#define DEBUG ;
 int main(int argc, char *argv[])
-{
+{//print help message if arguments are not met
 	if (argc<2){
 		printf("./sniffer \"sniffing device\" \"search phrase\" pcap filter rules\n");
 		return 1;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Couldn't open device %s: %s\n", buff, errbuf);
 		return(2);
 	} else printf("Device opened.\n");
-	if (pcap_lookupnet(buff, &net, &mask, errbuf) == -1) {//get network info from dev
+	if (pcap_lookupnet(buff, &net, &mask, errbuf) == -1) {//get network info from buff
 		fprintf(stderr, "Can't get netmask for device %s\n", buff);
 		net = 0;
 		mask = 0;
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 #if defined DEBUG
 		printf("comparing: packet[%s]argv[%s]*\n",  packet,argv[2]);
 #endif
-		results = strstr(   (char *)packet,   (char *)argv[2]); // this does not work
+		results = strstr(   (char *)packet,   (char *)argv[2]); //compare strings
 		if(results)printf("results[%s]\n",  &results);
 	}
 	pcap_close(handle);
